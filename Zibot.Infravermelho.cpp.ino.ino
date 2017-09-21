@@ -14,16 +14,16 @@ Infravermelho::Infravermelho(int AO, int DO, int VCC.Infra, int GND.Infra);
 
   pinMode(AO, INPUT);
   pinMode(DO, INPUT);
-  pinMode(GND.Infra, OUTPUT);
   pinMode(VCC.Infra, OUTPUT);
+  pinMode(GND.Infra, OUTPUT);
 
   digitalWrite(GND.Infra, LOW);
   digitalWrite(VCC.Infra, HIGH);
 
   _AO = AO;
   _DO = DO;
-  _GND.Infra = GND.Infra;
   _VCC.Infra = VCC.Infra;
+  _GND.Infra = GND.Infra;
 
 }
 
