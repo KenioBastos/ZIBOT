@@ -17,8 +17,8 @@ Infravermelho::Infravermelho(int AO, int DO, int VCC.Infra, int GND.Infra);
   pinMode(VCC.Infra, OUTPUT);
   pinMode(GND.Infra, OUTPUT);
 
-  digitalWrite(GND.Infra, LOW);
   digitalWrite(VCC.Infra, HIGH);
+  digitalWrite(GND.Infra, LOW);
 
   _AO = AO;
   _DO = DO;
