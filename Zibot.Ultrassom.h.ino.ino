@@ -1,6 +1,6 @@
 /*
   Zibot.Ultrassom.h - Biblioteca para pinagem e leitura de sensores ultrassônicos.
-  Criada por Kênio Bastos, dia 21 de setembro de 2017.
+  Criada por Kênio Bastos, dia 23 de setembro de 2017.
   Lançada para domínio público.
 */
 
