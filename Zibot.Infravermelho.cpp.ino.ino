@@ -1,6 +1,6 @@
 /*
-  Zibot.Infravermelho.h - Biblioteca para pinagem e leitura de sensores infravermelhos.
-  Criada por Kênio Bastos, dia 21 de setembro de 2017.
+  Zibot.Infravermelho.h - Biblioteca para pinagem e leitura de sensores óticos infravermelhos.
+  Criada por Kênio Bastos, dia 23 de setembro de 2017.
   Lançada para domínio público.
 */
 
@@ -34,7 +34,7 @@ void Infravermelho::LeituraAnalogica()
   Serial.print("O seu sensor esta lendo... ");
   Serial.println(analogRead(_AO));
 
-  MillisAnterior = millis();
+  unsigned long MillisAnterior = millis();
   do {} while (millis() - MillisAnterior <= 750);
 }
 
@@ -45,25 +45,30 @@ void Infravermelho::LeituraDigital()
   Serial.print("O seu sensor esta lendo... ");
   Serial.println(digitalRead(_DO));
 
-  MillisAnterior = millis();
+  unsigned long MillisAnterior = millis();
   do {} while (millis() - MillisAnterior <= 750);
 }
 
-//--------------------------------------------------------------------------------------->  COMANDO PARA CHECAGEM ANALOGICA; 
+//--------------------------------------------------------------------------------------->  COMANDO PARA CHECAGEM ANALOGICA;
 
 void Infravermelho::ChecagemAnalogica()
 {
-  Serial.println("Sera feita uma analise de qualidade do seu sensor, em relacao a leitura analogica.");
+  Serial.println("Sera feita uma analise de qualidade da leitura analogica do seu sensor.");
 
-  MillisAnterior = millis();
-  do {} while (millis() - MillisAnterior <= 500);
+  unsigned long MillisAnterior = millis();
+  do {} while (millis() - MillisAnterior <= 5000);
 
-//--------------------------------------------------------------------------------------->  LEITURA DO BRANCO;
+  Serial.println();
+
+  //--------------------------------------------------------------------------------------->  LEITURA DO BRANCO;
 
   Serial.println("Posicione seu sensor em alguma superficie branca.") ;
+  MillisAnterior = millis();
+  do {} while (millis() - MillisAnterior <= 2000);
   Serial.println("Lembre-se que a altura em relaçao ao chao afeta a leitura.");
+  MillisAnterior = millis();
+  do {} while (millis() - MillisAnterior <= 2000);
   Serial.println("A leitura do branco sera feita apos 5 segundos.");
-
   MillisAnterior = millis();
   do {} while (millis() - MillisAnterior <= 2000);
 
@@ -83,18 +88,21 @@ void Infravermelho::ChecagemAnalogica()
   MillisAnterior = millis();
   do {} while (millis() - MillisAnterior <= 1000);
 
-  Branco = analogRead(_AO);
+  int Branco = analogRead(_AO);
   Serial.println("Leitura do branco feita e armazenada!");
 
   MillisAnterior = millis();
-  do {} while (millis() - MillisAnterior <= 500);
+  do {} while (millis() - MillisAnterior <= 2000);
 
-//--------------------------------------------------------------------------------------->  LEITURA DO PRETO;
+  //--------------------------------------------------------------------------------------->  LEITURA DO PRETO;
 
   Serial.println("Posicione seu sensor em alguma superficie preta.") ;
+  MillisAnterior = millis();
+  do {} while (millis() - MillisAnterior <= 2000);
   Serial.println("Lembre-se que a altura em relaçao ao chao afeta a leitura.");
-  Serial.println("A leitura do preto sera feita apos 5 segundos.");
-
+  MillisAnterior = millis();
+  do {} while (millis() - MillisAnterior <= 2000);
+  Serial.println("A leitura do preta sera feita apos 5 segundos.");
   MillisAnterior = millis();
   do {} while (millis() - MillisAnterior <= 2000);
 
@@ -114,59 +122,71 @@ void Infravermelho::ChecagemAnalogica()
   MillisAnterior = millis();
   do {} while (millis() - MillisAnterior <= 1000);
 
-  Preto = analogRead(_AO);
+  int Preto = analogRead(_AO);
   Serial.println("Leitura do preto feita e armazenada!");
 
   MillisAnterior = millis();
-  do {} while (millis() - MillisAnterior <= 500);
+  do {} while (millis() - MillisAnterior <= 2000);
 
-//--------------------------------------------------------------------------------------->  RESULTADOS;
+  //--------------------------------------------------------------------------------------->  RESULTADOS;
 
   Serial.println("Hora dos resultados...");
   MillisAnterior = millis();
-  do {} while (millis() - MillisAnterior <= 500);
+  do {} while (millis() - MillisAnterior <= 2000);
 
   if (Preto >= 800 && Branco < 100)
   {
     Serial.println("Seu sensor esta funcionando perfeitamente.");
+    MillisAnterior = millis();
+    do {} while (millis() - MillisAnterior <= 2000);
 
     Serial.print("O sensor le branco num valor de...");
     Serial.println(Branco);
     Serial.print("E o preto, num valor de...");
     Serial.println(Preto);
+    MillisAnterior = millis();
+    do {} while (millis() - MillisAnterior <= 5000);
 
     Serial.println("Continue usando-o a vontade.");
 
     MillisAnterior = millis();
-    do {} while (millis() - MillisAnterior <= 1000);
+    do {} while (millis() - MillisAnterior <= 2000);
 
   } else if (Preto < 800 && Preto > 600 && Branco >= 100 && Branco < 300)
   {
     Serial.println("Seu sensor esta funcionando, porem de maneira nao ideal.");
+    MillisAnterior = millis();
+    do {} while (millis() - MillisAnterior <= 2000);
 
     Serial.print("O sensor le branco num valor de...");
     Serial.println(Branco);
     Serial.print("E o preto, num valor de...");
     Serial.println(Preto);
+    MillisAnterior = millis();
+    do {} while (millis() - MillisAnterior <= 5000);
 
-    Serial.println("Uma calibracao e recomendada. Considere problemas de iluminacao.");
+    Serial.println("Considere ler nosso manual de instruções.");
 
     MillisAnterior = millis();
-    do {} while (millis() - MillisAnterior <= 1000);
+    do {} while (millis() - MillisAnterior <= 2000);
 
   } else if (Preto < 600 && Branco >= 300);
   {
     Serial.println("Seu sensor nao esta funcionando corretamente.");
+    MillisAnterior = millis();
+    do {} while (millis() - MillisAnterior <= 2000);
 
     Serial.print("O sensor le branco num valor de...");
     Serial.println(Branco);
     Serial.print("E o preto, num valor de...");
     Serial.println(Preto);
+    MillisAnterior = millis();
+    do {} while (millis() - MillisAnterior <= 5000);
 
-    Serial.println("Troque-o imediatamente.");
+    Serial.println("Considere ler nosso manual de instruções.");
 
     MillisAnterior = millis();
-    do {} while (millis() - MillisAnterior <= 1000);
+    do {} while (millis() - MillisAnterior <= 2000);
   }
 }
 
@@ -174,18 +194,19 @@ void Infravermelho::ChecagemAnalogica()
 
 void Infravermelho::ChecagemDigital()
 {
-  Serial.println("Sera feita uma analise de qualidade do seu sensor, em relacao a leitura digital.");
+  Serial.println("Sera feita uma analise de qualidade da leitura digital do seu sensor.");
 
   MillisAnterior = millis();
-  do {} while (millis() - MillisAnterior <= 500);
+  do {} while (millis() - MillisAnterior <= 5000);
 
-//--------------------------------------------------------------------------------------->  LEITURA DO OBJETO;
+  //--------------------------------------------------------------------------------------->  LEITURA DO OBJETO;
 
   Serial.println("Posicione seu sensor em frente a um objeto.");
-  Serial.println("Lembre-se que a distancia pode afetar a leitura.");
-
   MillisAnterior = millis();
-  do {} while (millis() - MillisAnterior <= 500);
+  do {} while (millis() - MillisAnterior <= 2000);
+  Serial.println("Lembre-se que a distancia pode afetar a leitura.");
+  MillisAnterior = millis();
+  do {} while (millis() - MillisAnterior <= 2000);
 
   Serial.println("Cinco...");
   MillisAnterior = millis();
@@ -203,19 +224,20 @@ void Infravermelho::ChecagemDigital()
   MillisAnterior = millis();
   do {} while (millis() - MillisAnterior <= 1000);
 
-  Objeto = digitalRead(_DO);
+  int Objeto = digitalRead(_DO);
   Serial.println("Leitura do objeto feita e armazenada!");
 
   MillisAnterior = millis();
-  do {} while (millis() - MillisAnterior <= 500);
+  do {} while (millis() - MillisAnterior <= 2000);
 
-//--------------------------------------------------------------------------------------->  LEITURA SEM OBJETO;
+  //--------------------------------------------------------------------------------------->  LEITURA SEM OBJETO;
 
   Serial.println("Posicione seu sensor sem objeto nenhum em sua frente.");
-  Serial.println("Lembre-se que a distancia pode afetar a leitura.");
-
   MillisAnterior = millis();
-  do {} while (millis() - MillisAnterior <= 500);
+  do {} while (millis() - MillisAnterior <= 2000);
+  Serial.println("Lembre-se que a distancia pode afetar a leitura.");
+  MillisAnterior = millis();
+  do {} while (millis() - MillisAnterior <= 2000);
 
   Serial.println("Cinco...");
   MillisAnterior = millis();
@@ -233,43 +255,54 @@ void Infravermelho::ChecagemDigital()
   MillisAnterior = millis();
   do {} while (millis() - MillisAnterior <= 1000);
 
-  SemObjeto = digitalRead(_DO);
+  int SemObjeto = digitalRead(_DO);
   Serial.println("Leitura sem objeto feita e armazenada!");
 
-//--------------------------------------------------------------------------------------->  RESULTADOS;
+  MillisAnterior = millis();
+  do {} while (millis() - MillisAnterior <= 2000);
+
+  //--------------------------------------------------------------------------------------->  RESULTADOS;
 
   Serial.println("Hora dos resultados...");
 
   MillisAnterior = millis();
-  do {} while (millis() - MillisAnterior <= 500);
+  do {} while (millis() - MillisAnterior <= 2000);
 
   if (Objeto = 1 && SemObjeto = 0)
   {
     Serial.println("Seu sensor esta funcionando perfeitamente.");
+    MillisAnterior = millis();
+    do {} while (millis() - MillisAnterior <= 2000);
 
     Serial.print("Quando ha objeto, o sensor le...");
     Serial.println(Objeto);
     Serial.print("E quando nao ha, o sensor le...");
     Serial.println(SemObjeto);
+    MillisAnterior = millis();
+    do {} while (millis() - MillisAnterior <= 5000);
 
     Serial.println("Continue usando-o a vontade.");
 
     MillisAnterior = millis();
-    do {} while (millis() - MillisAnterior <= 1000);
+    do {} while (millis() - MillisAnterior <= 2000);
 
   } else
   {
     Serial.println("Seu sensor nao esta funcionando corretamente.");
+    MillisAnterior = millis();
+    do {} while (millis() - MillisAnterior <= 2000);
 
     Serial.print("Quando ha objeto, o sensor le...");
     Serial.println(Objeto);
     Serial.print("E quando nao ha, o sensor le...");
     Serial.println(SemObjeto);
+    MillisAnterior = millis();
+    do {} while (millis() - MillisAnterior <= 5000);
 
-    Serial.println("Troque-o imediatamente, adapte a programacao, ou considere problemas de distancia.");
+    Serial.println("Considere ler nosso manual de instruções.");
 
     MillisAnterior = millis();
-    do {} while (millis() - MillisAnterior <= 1000);
+    do {} while (millis() - MillisAnterior <= 2000);
   }
 }
 
